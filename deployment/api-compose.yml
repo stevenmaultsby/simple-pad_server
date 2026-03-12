@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: ../API
+      dockerfile: Dockerfile
+      network: host
+    restart: always
+    volumes:
+      - ../API/src:/mnt/src/
+    environment:
+      - DB_PATH=${DB_PATH}
+      - SECRET=${SERVICE_SECRET}
+    depends_on:
+      db:
+        condition: service_healthy
